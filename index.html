@@ -611,10 +611,10 @@
     container.innerHTML = filtered.map((product, idx) => {
       const hasDiscount = product.original_price && product.original_price > product.price;
       const discountPct = hasDiscount ? Math.round((1 - product.price / product.original_price) * 100) : 0;
-      const buttonId = `add-cart-btn-${Date.now()}-${idx}`;
+      const productId = `product-${Date.now()}-${idx}`;
       
       // Store product data in map
-      productButtonMap.set(buttonId, {
+      productButtonMap.set(productId, {
         name: product.name,
         category: product.category,
         price: product.price,
@@ -625,7 +625,7 @@
       });
       
       return `
-        <div class="glass-card" style="border-radius:12px;overflow:hidden;display:flex;flex-direction:column;gap:0;cursor:pointer;" onclick="viewProductDetailsFromMap('${buttonId}')">
+        <div class="glass-card product-card" data-product-id="${productId}" style="border-radius:12px;overflow:hidden;display:flex;flex-direction:column;gap:0;cursor:pointer;">
           <!-- Product Image Section -->
           <div class="product-image-container" style="position:relative;background:linear-gradient(135deg,rgba(0,120,212,0.2),rgba(80,200,255,0.1));aspect-ratio:1;display:flex;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid rgba(255,255,255,0.05);">
             <svg width="100%" height="100%" viewBox="0 0 300 300" style="position:absolute;top:0;left:0;opacity:0.4;">
@@ -679,7 +679,7 @@
             </div>
 
             <!-- Add to Cart Button -->
-            <button type="button" class="btn-primary" id="${buttonId}" style="width:100%;padding:10px 14px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;" onclick="event.preventDefault();event.stopPropagation();addToCartViaButton('${buttonId}')">
+            <button type="button" class="btn-primary add-to-cart-btn" data-product-id="${productId}" style="width:100%;padding:10px 14px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;">
               <i data-lucide="shopping-cart" style="width:14px;height:14px;"></i> Thêm vào giỏ
             </button>
           </div>
@@ -690,19 +690,30 @@
     lucide.createIcons();
   }
 
-  function viewProductDetailsFromMap(buttonId) {
-    const data = productButtonMap.get(buttonId);
-    if (data) {
-      viewProductDetails(data.name, data.category, data.specs, data.price, data.originalPrice, data.badge, data.inStock);
+  // Event delegation for product cards and buttons
+  document.addEventListener('click', function(e) {
+    const addBtn = e.target.closest('.add-to-cart-btn');
+    if (addBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      const productId = addBtn.getAttribute('data-product-id');
+      const data = productButtonMap.get(productId);
+      if (data) {
+        addProductToCart(data.name, data.category, data.price);
+      }
+      return;
     }
-  }
 
-  async function addToCartViaButton(buttonId) {
-    const data = productButtonMap.get(buttonId);
-    if (data) {
-      await addProductToCart(data.name, data.category, data.price);
+    const card = e.target.closest('.product-card');
+    if (card && !e.target.closest('.add-to-cart-btn')) {
+      e.stopPropagation();
+      const productId = card.getAttribute('data-product-id');
+      const data = productButtonMap.get(productId);
+      if (data) {
+        viewProductDetails(data.name, data.category, data.specs, data.price, data.originalPrice, data.badge, data.inStock);
+      }
     }
-  }
+  }, true);
 
   function viewProductDetails(name, category, specs, price, originalPrice, badge, inStock) {
     currentProductDetail = { name, category, specs, price, originalPrice, badge, inStock };
@@ -1081,6 +1092,13 @@ ${cartData.map(item => `• ${item.product_name} x${item.quantity} = ${formatPri
         const priceStr = (obj.price || '0').trim();
         
         if (name && category && !isNaN(parseFloat(priceStr))) {
+          // Parse in_stock: default to true if missing or unclear
+          let inStock = true;
+          const stockVal = (obj.in_stock || 'true').toLowerCase().trim();
+          if (stockVal === 'false' || stockVal === '0' || stockVal === 'no') {
+            inStock = false;
+          }
+          
           products.push({
             name: name,
             category: category,
@@ -1089,7 +1107,7 @@ ${cartData.map(item => `• ${item.product_name} x${item.quantity} = ${formatPri
             image_url: (obj.image_url || '').trim(),
             specs: (obj.specs || '').trim(),
             badge: (obj.badge || '').trim(),
-            in_stock: (obj.in_stock || 'true').toLowerCase() === 'true' || (obj.in_stock || 'true') === '1' || (obj.in_stock || 'true') === 'yes'
+            in_stock: inStock
           });
         }
       }
@@ -1136,5 +1154,5 @@ ${cartData.map(item => `• ${item.product_name} x${item.quantity} = ${formatPri
 
   lucide.createIcons();
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e4e8f98668ad11a',t:'MTc3NDk1MTc5MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e4e97c1a639d11a',t:'MTc3NDk1MjEyNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
