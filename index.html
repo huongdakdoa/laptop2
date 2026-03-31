@@ -227,26 +227,31 @@
   <style>body { box-sizing: border-box; }</style>
  </head>
  <body>
-  <div class="app-root" id="app"><!-- NAVBAR -->
+  <div class="app-root" id="app">
+   <!-- NAVBAR -->
    <header class="glass sticky top-0 z-50">
     <div style="max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:64px;">
      <div style="display:flex;align-items:center;gap:12px;">
-      <svg width="22" height="22" viewbox="0 0 21 21" fill="none"><rect x="0" y="0" width="10" height="10" fill="#f25022" /> <rect x="11" y="0" width="10" height="10" fill="#7fba00" /> <rect x="0" y="11" width="10" height="10" fill="#00a4ef" /> <rect x="11" y="11" width="10" height="10" fill="#ffb900" />
+      <svg width="22" height="22" viewbox="0 0 21 21" fill="none">
+       <rect x="0" y="0" width="10" height="10" fill="#f25022" /> <rect x="11" y="0" width="10" height="10" fill="#7fba00" /> <rect x="0" y="11" width="10" height="10" fill="#00a4ef" /> <rect x="11" y="11" width="10" height="10" fill="#ffb900" />
       </svg><span id="nav-store-title" style="font-weight:700;font-size:18px;letter-spacing:-0.3px;">Surface Store</span>
      </div>
-     <nav style="display:flex;gap:28px;align-items:center;"><a href="#products" class="nav-link">Sản phẩm</a> <a href="#about" class="nav-link">Giới thiệu</a> <a href="#contact" class="nav-link">Liên hệ</a> <button class="cart-icon-btn" onclick="openCart()" title="Giỏ hàng"> <i data-lucide="shopping-cart" style="width:20px;height:20px;"></i> <span class="cart-badge" id="cart-count" style="display:none;">0</span> </button>
+     <nav style="display:flex;gap:28px;align-items:center;">
+      <a href="#products" class="nav-link">Sản phẩm</a> <a href="#about" class="nav-link">Giới thiệu</a> <a href="#contact" class="nav-link">Liên hệ</a> <button class="cart-icon-btn" onclick="openCart()" title="Giỏ hàng"> <i data-lucide="shopping-cart" style="width:20px;height:20px;"></i> <span class="cart-badge" id="cart-count" style="display:none;">0</span> </button>
      </nav>
     </div>
    </header><!-- HERO -->
    <section class="hero-bg" style="padding:80px 24px 70px;">
     <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;">
      <div>
-      <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(0,120,212,0.15);border:1px solid rgba(0,120,212,0.3);border-radius:20px;margin-bottom:20px;"><i data-lucide="zap" style="width:14px;height:14px;color:#0078d4;"></i> <span style="font-size:12px;color:#50c8ff;font-weight:600;">Chính hãng Microsoft</span>
+      <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(0,120,212,0.15);border:1px solid rgba(0,120,212,0.3);border-radius:20px;margin-bottom:20px;">
+       <i data-lucide="zap" style="width:14px;height:14px;color:#0078d4;"></i> <span style="font-size:12px;color:#50c8ff;font-weight:600;">Chính hãng Microsoft</span>
       </div>
       <h1 id="hero-title-el" style="font-size:48px;font-weight:800;line-height:1.15;margin-bottom:16px;"><span class="gradient-text">Khám phá dòng</span><br>
         Surface</h1>
       <p id="hero-subtitle-el" style="font-size:16px;color:rgba(255,255,255,0.6);margin-bottom:32px;line-height:1.6;">Thiết kế tinh tế, hiệu năng vượt trội — trải nghiệm công nghệ đỉnh cao từ Microsoft dành riêng cho bạn.</p>
-      <div style="display:flex;gap:12px;flex-wrap:wrap;"><a href="#products" class="btn-primary" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;"> Xem sản phẩm <i data-lucide="arrow-right" style="width:16px;height:16px;"></i> </a> <a href="#contact" class="btn-secondary" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;"> Liên hệ tư vấn </a>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+       <a href="#products" class="btn-primary" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;"> Xem sản phẩm <i data-lucide="arrow-right" style="width:16px;height:16px;"></i> </a> <a href="#contact" class="btn-secondary" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;"> Liên hệ tư vấn </a>
       </div>
       <div style="display:flex;gap:32px;margin-top:40px;">
        <div>
@@ -277,7 +282,8 @@
      </div>
      <div style="position:relative;display:flex;justify-content:center;align-items:center;">
       <div style="position:relative;z-index:1;">
-       <svg viewbox="0 0 380 260" width="100%" style="max-width:380px;filter:drop-shadow(0 20px 60px rgba(0,120,212,0.3));"><rect x="20" y="20" width="340" height="200" rx="12" fill="rgba(0,120,212,0.08)" stroke="rgba(0,120,212,0.25)" stroke-width="1.5" /> <rect x="35" y="35" width="310" height="170" rx="6" fill="rgba(0,0,0,0.4)" /> <rect x="50" y="55" width="120" height="12" rx="3" fill="rgba(0,120,212,0.5)" /> <rect x="50" y="75" width="200" height="7" rx="2" fill="rgba(255,255,255,0.15)" /> <rect x="50" y="89" width="160" height="7" rx="2" fill="rgba(255,255,255,0.1)" /> <rect x="50" y="103" width="180" height="7" rx="2" fill="rgba(255,255,255,0.08)" /> <rect x="200" y="55" width="120" height="80" rx="8" fill="rgba(0,120,212,0.12)" stroke="rgba(0,120,212,0.2)" stroke-width="1" /> <circle cx="260" cy="80" r="20" fill="rgba(0,120,212,0.2)" /> <rect x="235" y="110" width="50" height="6" rx="2" fill="rgba(255,255,255,0.15)" /> <rect x="240" y="122" width="40" height="5" rx="2" fill="rgba(255,255,255,0.08)" /> <rect x="248" y="70" width="8" height="8" fill="#f25022" rx="1" /> <rect x="258" y="70" width="8" height="8" fill="#7fba00" rx="1" /> <rect x="248" y="80" width="8" height="8" fill="#00a4ef" rx="1" /> <rect x="258" y="80" width="8" height="8" fill="#ffb900" rx="1" /> <path d="M10 225 L50 225 L60 240 L320 240 L330 225 L370 225 L375 245 L5 245 Z" fill="rgba(0,120,212,0.1)" stroke="rgba(0,120,212,0.2)" stroke-width="1" /> <rect x="150" y="222" width="80" height="4" rx="2" fill="rgba(0,120,212,0.3)" />
+       <svg viewbox="0 0 380 260" width="100%" style="max-width:380px;filter:drop-shadow(0 20px 60px rgba(0,120,212,0.3));">
+        <rect x="20" y="20" width="340" height="200" rx="12" fill="rgba(0,120,212,0.08)" stroke="rgba(0,120,212,0.25)" stroke-width="1.5" /> <rect x="35" y="35" width="310" height="170" rx="6" fill="rgba(0,0,0,0.4)" /> <rect x="50" y="55" width="120" height="12" rx="3" fill="rgba(0,120,212,0.5)" /> <rect x="50" y="75" width="200" height="7" rx="2" fill="rgba(255,255,255,0.15)" /> <rect x="50" y="89" width="160" height="7" rx="2" fill="rgba(255,255,255,0.1)" /> <rect x="50" y="103" width="180" height="7" rx="2" fill="rgba(255,255,255,0.08)" /> <rect x="200" y="55" width="120" height="80" rx="8" fill="rgba(0,120,212,0.12)" stroke="rgba(0,120,212,0.2)" stroke-width="1" /> <circle cx="260" cy="80" r="20" fill="rgba(0,120,212,0.2)" /> <rect x="235" y="110" width="50" height="6" rx="2" fill="rgba(255,255,255,0.15)" /> <rect x="240" y="122" width="40" height="5" rx="2" fill="rgba(255,255,255,0.08)" /> <rect x="248" y="70" width="8" height="8" fill="#f25022" rx="1" /> <rect x="258" y="70" width="8" height="8" fill="#7fba00" rx="1" /> <rect x="248" y="80" width="8" height="8" fill="#00a4ef" rx="1" /> <rect x="258" y="80" width="8" height="8" fill="#ffb900" rx="1" /> <path d="M10 225 L50 225 L60 240 L320 240 L330 225 L370 225 L375 245 L5 245 Z" fill="rgba(0,120,212,0.1)" stroke="rgba(0,120,212,0.2)" stroke-width="1" /> <rect x="150" y="222" width="80" height="4" rx="2" fill="rgba(0,120,212,0.3)" />
        </svg>
       </div>
       <div style="position:absolute;width:200px;height:200px;background:radial-gradient(circle,rgba(0,120,212,0.2),transparent);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;"></div>
@@ -290,10 +296,12 @@
       <h2 style="font-size:32px;font-weight:800;margin-bottom:6px;">Danh sách sản phẩm</h2>
       <p style="color:rgba(255,255,255,0.4);font-size:14px;">Tất cả dòng Surface chính hãng</p>
      </div>
-     <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><button class="btn-secondary" onclick="exportCSV()" style="display:flex;align-items:center;gap:6px;padding:8px 14px;font-size:13px;"> <i data-lucide="download" style="width:14px;height:14px;"></i> Export CSV </button>
+     <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+      <button class="btn-secondary" onclick="exportCSV()" style="display:flex;align-items:center;gap:6px;padding:8px 14px;font-size:13px;"> <i data-lucide="download" style="width:14px;height:14px;"></i> Export CSV </button>
      </div>
     </div>
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;"><button class="btn-secondary" id="load-btn" style="display:flex;align-items:center;gap:6px;padding:8px 14px;font-size:13px;"> <i data-lucide="download" style="width:14px;height:14px;"></i> <span id="load-btn-text">Đang tải dữ liệu...</span> </button> <span id="sync-status" style="font-size:12px;color:rgba(255,255,255,0.4);"></span>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+     <button class="btn-secondary" id="load-btn" style="display:flex;align-items:center;gap:6px;padding:8px 14px;font-size:13px;"> <i data-lucide="download" style="width:14px;height:14px;"></i> <span id="load-btn-text">Đang tải dữ liệu...</span> </button> <span id="sync-status" style="font-size:12px;color:rgba(255,255,255,0.4);"></span>
     </div>
     <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:24px;" id="category-tabs">
     </div><!-- Loading State -->
@@ -317,19 +325,22 @@
    <section id="about" style="max-width:1200px;margin:0 auto;padding:40px 24px 60px;">
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;">
      <div class="glass-card" style="border-radius:16px;padding:28px;">
-      <div style="width:44px;height:44px;background:rgba(0,120,212,0.2);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;"><i data-lucide="shield-check" style="width:22px;height:22px;color:#0078d4;"></i>
+      <div style="width:44px;height:44px;background:rgba(0,120,212,0.2);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+       <i data-lucide="shield-check" style="width:22px;height:22px;color:#0078d4;"></i>
       </div>
       <h3 style="font-weight:700;font-size:16px;margin-bottom:8px;">Chính hãng 100%</h3>
       <p style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.6;">Tất cả sản phẩm đều có tem bảo hành Microsoft, xuất xứ rõ ràng.</p>
      </div>
      <div class="glass-card" style="border-radius:16px;padding:28px;">
-      <div style="width:44px;height:44px;background:rgba(0,200,100,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;"><i data-lucide="truck" style="width:22px;height:22px;color:#00c864;"></i>
+      <div style="width:44px;height:44px;background:rgba(0,200,100,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+       <i data-lucide="truck" style="width:22px;height:22px;color:#00c864;"></i>
       </div>
       <h3 style="font-weight:700;font-size:16px;margin-bottom:8px;">Giao hàng toàn quốc</h3>
       <p style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.6;">Giao nhanh 24h tại TP.HCM và Hà Nội, 2-3 ngày tỉnh thành khác.</p>
      </div>
      <div class="glass-card" style="border-radius:16px;padding:28px;">
-      <div style="width:44px;height:44px;background:rgba(255,185,0,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;"><i data-lucide="headphones" style="width:22px;height:22px;color:#ffb900;"></i>
+      <div style="width:44px;height:44px;background:rgba(255,185,0,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+       <i data-lucide="headphones" style="width:22px;height:22px;color:#ffb900;"></i>
       </div>
       <h3 style="font-weight:700;font-size:16px;margin-bottom:8px;">Hỗ trợ 24/7</h3>
       <p style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.6;">Đội ngũ tư vấn viên sẵn sàng hỗ trợ bạn mọi lúc, mọi nơi.</p>
@@ -341,11 +352,14 @@
      <h2 style="font-size:28px;font-weight:800;margin-bottom:10px;">Liên hệ tư vấn</h2>
      <p style="color:rgba(255,255,255,0.5);margin-bottom:32px;">Chúng tôi sẵn sàng hỗ trợ bạn chọn chiếc Surface phù hợp nhất</p>
      <div style="display:flex;justify-content:center;gap:32px;flex-wrap:wrap;">
-      <div style="display:flex;align-items:center;gap:10px;"><i data-lucide="phone" style="width:20px;height:20px;color:#0078d4;"></i> <span id="contact-phone-el" style="font-weight:600;">1800 xxxx</span>
+      <div style="display:flex;align-items:center;gap:10px;">
+       <i data-lucide="phone" style="width:20px;height:20px;color:#0078d4;"></i> <span id="contact-phone-el" style="font-weight:600;">1800 xxxx</span>
       </div>
-      <div style="display:flex;align-items:center;gap:10px;"><i data-lucide="mail" style="width:20px;height:20px;color:#0078d4;"></i> <span style="font-weight:600;">support@surfacestore.vn</span>
+      <div style="display:flex;align-items:center;gap:10px;">
+       <i data-lucide="mail" style="width:20px;height:20px;color:#0078d4;"></i> <span style="font-weight:600;">support@surfacestore.vn</span>
       </div>
-      <div style="display:flex;align-items:center;gap:10px;"><i data-lucide="clock" style="width:20px;height:20px;color:#0078d4;"></i> <span style="font-weight:600;">8:00 - 21:00 hàng ngày</span>
+      <div style="display:flex;align-items:center;gap:10px;">
+       <i data-lucide="clock" style="width:20px;height:20px;color:#0078d4;"></i> <span style="font-weight:600;">8:00 - 21:00 hàng ngày</span>
       </div>
      </div>
     </div>
@@ -353,7 +367,8 @@
    <footer style="text-align:center;padding:20px 24px;border-top:1px solid rgba(255,255,255,0.06);">
     <p style="font-size:12px;color:rgba(255,255,255,0.3);">© 2024 <span id="footer-store-name">Surface Store Vietnam</span>. Đại lý ủy quyền Microsoft.</p>
    </footer><!-- FLOATING ZALO BUTTON --> <button class="floating-zalo" id="zalo-btn" onclick="openZalo()" title="Chat Zalo">
-    <svg width="32" height="32" viewbox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+    <svg width="32" height="32" viewbox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
     </svg></button>
   </div><!-- PRODUCT DETAILS MODAL -->
   <div id="product-modal" class="modal-overlay" style="display:none;">
@@ -363,7 +378,8 @@
     </div>
     <div id="modal-content" style="max-height:500px;overflow-y:auto;">
     </div>
-    <div style="display:flex;gap:12px;justify-content:flex-end;margin-top:20px;"><button type="button" class="btn-secondary" onclick="closeModal()">Đóng</button> <button type="button" class="btn-primary" onclick="addToCartFromModal()" style="display:flex;align-items:center;gap:6px;"> <i data-lucide="shopping-cart" style="width:16px;height:16px;"></i> Thêm vào giỏ </button>
+    <div style="display:flex;gap:12px;justify-content:flex-end;margin-top:20px;">
+     <button type="button" class="btn-secondary" onclick="closeModal()">Đóng</button> <button type="button" class="btn-primary" onclick="addToCartFromModal()" style="display:flex;align-items:center;gap:6px;"> <i data-lucide="shopping-cart" style="width:16px;height:16px;"></i> Thêm vào giỏ </button>
     </div>
    </div>
   </div><!-- SHOPPING CART MODAL -->
@@ -373,15 +389,18 @@
      <h2 style="font-size:20px;font-weight:700;">🛒 Giỏ hàng</h2><button onclick="closeCart()" style="background:none;border:none;cursor:pointer;color:rgba(255,255,255,0.5);padding:4px;"> <i data-lucide="x" style="width:22px;height:22px;"></i> </button>
     </div>
     <div id="cart-items-container" style="max-height:400px;overflow-y:auto;margin-bottom:20px;">
-     <div style="text-align:center;padding:40px 20px;color:rgba(255,255,255,0.4);"><i data-lucide="shopping-cart" style="width:48px;height:48px;margin-bottom:12px;opacity:0.5;"></i>
+     <div style="text-align:center;padding:40px 20px;color:rgba(255,255,255,0.4);">
+      <i data-lucide="shopping-cart" style="width:48px;height:48px;margin-bottom:12px;opacity:0.5;"></i>
       <p>Giỏ hàng trống</p>
      </div>
     </div>
     <div id="cart-summary" style="border-top:1px solid rgba(255,255,255,0.1);padding-top:16px;display:none;">
-     <div style="display:flex;justify-content:space-between;margin-bottom:12px;font-size:14px;color:rgba(255,255,255,0.6);"><span>Tổng cộng:</span> <span id="cart-total" style="color:#50c8ff;font-weight:700;font-size:18px;">0 ₫</span>
+     <div style="display:flex;justify-content:space-between;margin-bottom:12px;font-size:14px;color:rgba(255,255,255,0.6);">
+      <span>Tổng cộng:</span> <span id="cart-total" style="color:#50c8ff;font-weight:700;font-size:18px;">0 ₫</span>
      </div>
     </div>
-    <div style="display:flex;gap:12px;justify-content:flex-end;margin-top:20px;"><button type="button" class="btn-secondary" onclick="closeCart()">Tiếp tục mua</button> <button type="button" class="btn-primary" id="checkout-btn" onclick="proceedToCheckout()" style="display:none;"> Thanh toán </button>
+    <div style="display:flex;gap:12px;justify-content:flex-end;margin-top:20px;">
+     <button type="button" class="btn-secondary" onclick="closeCart()">Tiếp tục mua</button> <button type="button" class="btn-primary" id="checkout-btn" onclick="proceedToCheckout()" style="display:none;"> Thanh toán </button>
     </div>
    </div>
   </div><!-- CHECKOUT MODAL -->
@@ -391,15 +410,20 @@
      <h2 style="font-size:20px;font-weight:700;">💳 Thanh toán</h2><button onclick="closeCheckout()" style="background:none;border:none;cursor:pointer;color:rgba(255,255,255,0.5);padding:4px;"> <i data-lucide="x" style="width:22px;height:22px;"></i> </button>
     </div>
     <form id="checkout-form" style="display:grid;gap:16px;" onsubmit="submitCheckout(event)">
-     <div><label for="customer-name">Họ và tên *</label> <input type="text" id="customer-name" class="input-field" placeholder="Nhập họ và tên" required>
+     <div>
+      <label for="customer-name">Họ và tên *</label> <input type="text" id="customer-name" class="input-field" placeholder="Nhập họ và tên" required>
      </div>
-     <div><label for="customer-phone">Số điện thoại *</label> <input type="tel" id="customer-phone" class="input-field" placeholder="0901234567" required>
+     <div>
+      <label for="customer-phone">Số điện thoại *</label> <input type="tel" id="customer-phone" class="input-field" placeholder="0901234567" required>
      </div>
-     <div><label for="customer-email">Email</label> <input type="email" id="customer-email" class="input-field" placeholder="email@example.com">
+     <div>
+      <label for="customer-email">Email</label> <input type="email" id="customer-email" class="input-field" placeholder="email@example.com">
      </div>
-     <div><label for="customer-address">Địa chỉ giao hàng *</label> <input type="text" id="customer-address" class="input-field" placeholder="Địa chỉ nhận hàng" required>
+     <div>
+      <label for="customer-address">Địa chỉ giao hàng *</label> <input type="text" id="customer-address" class="input-field" placeholder="Địa chỉ nhận hàng" required>
      </div>
-     <div><label for="customer-note">Ghi chú</label> <textarea id="customer-note" class="input-field" placeholder="Ghi chú thêm (không bắt buộc)" style="min-height:80px;resize:vertical;"></textarea>
+     <div>
+      <label for="customer-note">Ghi chú</label> <textarea id="customer-note" class="input-field" placeholder="Ghi chú thêm (không bắt buộc)" style="min-height:80px;resize:vertical;"></textarea>
      </div>
      <div style="background:rgba(0,120,212,0.1);border:1px solid rgba(0,120,212,0.2);border-radius:8px;padding:16px;">
       <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-bottom:12px;">
@@ -407,10 +431,12 @@
       </div>
       <div id="checkout-summary" style="display:grid;gap:8px;font-size:13px;margin-bottom:12px;border-bottom:1px solid rgba(0,120,212,0.2);padding-bottom:12px;">
       </div>
-      <div style="display:flex;justify-content:space-between;font-weight:700;color:#50c8ff;font-size:16px;"><span>Tổng tiền:</span> <span id="checkout-total">0 ₫</span>
+      <div style="display:flex;justify-content:space-between;font-weight:700;color:#50c8ff;font-size:16px;">
+       <span>Tổng tiền:</span> <span id="checkout-total">0 ₫</span>
       </div>
      </div>
-     <div style="display:flex;gap:12px;justify-content:flex-end;"><button type="button" class="btn-secondary" onclick="closeCheckout()">Hủy</button> <button type="submit" class="btn-primary" id="submit-checkout-btn">Xác nhận đặt hàng</button>
+     <div style="display:flex;gap:12px;justify-content:flex-end;">
+      <button type="button" class="btn-secondary" onclick="closeCheckout()">Hủy</button> <button type="submit" class="btn-primary" id="submit-checkout-btn">Xác nhận đặt hàng</button>
      </div>
     </form>
    </div>
@@ -421,6 +447,41 @@
   let cartData = [];
   let currentProductDetail = null;
   const GOOGLE_SHEETS_URL = 'https://docs.google.com/spreadsheets/d/1X5B9QzyQfkUgXcKaWVipxxRN2eWKkJdhN2J0DFLoIb4/export?format=csv';
+
+  // Convert Google Drive URL to direct download link
+  function convertGoogleDriveUrl(url) {
+    if (!url) return '';
+    url = url.trim();
+    
+    // Already a direct Google Drive link
+    if (url.includes('drive.google.com/uc?export=view')) return url;
+    if (url.includes('drive.google.com/thumbnail?id=')) return url;
+    
+    // Extract ID from different Google Drive URL formats
+    let fileId = null;
+    
+    // Format: https://drive.google.com/file/d/FILE_ID/view
+    if (url.includes('/d/')) {
+      const match = url.match(/\/d\/([a-zA-Z0-9-_]+)/);
+      if (match) fileId = match[1];
+    }
+    // Format: https://drive.google.com/open?id=FILE_ID
+    else if (url.includes('id=')) {
+      const match = url.match(/id=([a-zA-Z0-9-_]+)/);
+      if (match) fileId = match[1];
+    }
+    // Just an ID
+    else if (/^[a-zA-Z0-9-_]{20,}$/.test(url)) {
+      fileId = url;
+    }
+    
+    if (fileId) {
+      // Use thumbnail endpoint for better compatibility
+      return `https://drive.google.com/thumbnail?id=${fileId}&sz=w500`;
+    }
+    
+    return url;
+  }
 
   const defaultConfig = {
     store_title: 'Surface Store',
@@ -564,7 +625,7 @@
             </svg>
             <div style="position:relative;z-index:2;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;">
               ${product.image_url && product.image_url.trim() ? 
-                `<img src="${product.image_url}" alt="${product.name}" loading="lazy" style="max-width:85%;max-height:85%;object-fit:contain;border-radius:4px;" onerror="console.error('Image failed:', this.src); this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                `<img src="${convertGoogleDriveUrl(product.image_url)}" alt="${product.name}" loading="lazy" style="max-width:85%;max-height:85%;object-fit:contain;border-radius:4px;" onerror="this.style.display='none';this.nextElementSibling?.style?.setProperty('display','flex','important');" />
                 <i data-lucide="monitor" style="width:80px;height:80px;color:rgba(0,120,212,0.6);display:none;"></i>` 
                 : `<i data-lucide="monitor" style="width:80px;height:80px;color:rgba(0,120,212,0.6);"></i>`
               }
@@ -1043,5 +1104,5 @@ ${cartData.map(item => `• ${item.product_name} x${item.quantity} = ${formatPri
 
   lucide.createIcons();
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e4e74b26399ddc4',t:'MTc3NDk1MDY5MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e4e86e79788ddc4',t:'MTc3NDk1MTQzNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
