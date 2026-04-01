@@ -258,7 +258,7 @@
      <div>
       <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(0,120,212,0.15);border:1px solid rgba(0,120,212,0.3);border-radius:20px;margin-bottom:20px;"><i data-lucide="zap" style="width:14px;height:14px;color:#0078d4;"></i> <span style="font-size:12px;color:#50c8ff;font-weight:600;">Chính hãng Microsoft</span>
       </div>
-      <h1 id="hero-title-el" style="font-size:48px;font-weight:800;line-height:1.15;margin-bottom:16px;"><span class="gradient-text">Khám phá dòng 1</span><br>
+      <h1 id="hero-title-el" style="font-size:48px;font-weight:800;line-height:1.15;margin-bottom:16px;"><span class="gradient-text">Khám phá dòng 2</span><br>
         Surface</h1>
       <p id="hero-subtitle-el" style="font-size:16px;color:rgba(255,255,255,0.6);margin-bottom:32px;line-height:1.6;">Thiết kế tinh tế, hiệu năng vượt trội — trải nghiệm công nghệ đỉnh cao từ Microsoft dành riêng cho bạn.</p>
       <div style="display:flex;gap:12px;flex-wrap:wrap;"><a href="#products" class="btn-primary" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;"> Xem sản phẩm <i data-lucide="arrow-right" style="width:16px;height:16px;"></i> </a> <a href="#contact" class="btn-secondary" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;"> Liên hệ tư vấn </a>
@@ -494,53 +494,94 @@
     }
   };
 
-  // Initialize SDKs
-  async function initSDKs() {
-    await window.dataSdk.init(dataHandler);
+ <script>
+    // 1. Khởi tạo dữ liệu từ trình duyệt (LocalStorage) thay vì SDK
+    let cartData = JSON.parse(localStorage.getItem('surface_cart')) || [];
+    let allProducts = [
+        {name: 'Surface Pro 9', category: 'Laptop', price: 25900000, specs: 'Intel Core i5, 8GB RAM, 256GB SSD'},
+        {name: 'Surface Laptop 5', category: 'Laptop', price: 22500000, specs: 'Màn hình 13.5 inch, Alcantara'},
+        {name: 'Surface Go 3', category: 'Tablet', price: 11200000, specs: 'Nhỏ gọn, linh hoạt cho học tập'}
+    ];
+    let activeCategory = 'Tất cả';
+    let currentProductDetail = null;
+
+    // Khởi tạo icon
+    lucide.createIcons();
+
+    // 2. Hàm sửa lỗi "Thêm vào giỏ" - Không dùng SDK bị lỗi 404 nữa
+    function addProductToCart(name, category, price) {
+        const existingItem = cartData.find(item => item.product_name === name);
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cartData.push({
+                product_name: name,
+                category: category,
+                price: price,
+                quantity: 1,
+                added_at: new Date().toISOString()
+            });
+        }
+        
+        // Lưu dữ liệu vào máy người dùng
+        localStorage.setItem('surface_cart', JSON.stringify(cartData));
+        updateCartUI();
+        showToast('✅ Đã thêm ' + name + ' vào giỏ');
+    }
+
+    // 3. Cập nhật giao diện giỏ hàng ngay lập tức
+    function updateCartUI() {
+        const count = cartData.reduce((sum, item) => sum + item.quantity, 0);
+        const badge = document.getElementById('cart-count');
+        if (badge) {
+            badge.innerText = count;
+            badge.style.display = count > 0 ? 'flex' : 'none';
+        }
+    }
+
+    function addToCartFromModal() {
+        if (currentProductDetail) {
+            addProductToCart(currentProductDetail.name, currentProductDetail.category, currentProductDetail.price);
+            closeModal();
+        }
+    }
+
+    // Các hàm điều khiển Modal
+    function openCart() { 
+        alert("Giỏ hàng đang có " + cartData.length + " loại sản phẩm. (Bạn có thể viết thêm hàm renderCartItems để xem chi tiết)");
+    }
     
-    window.elementSdk.init({
-      defaultConfig,
-      onConfigChange: async (config) => {
-        document.getElementById('nav-store-title').textContent = config.store_title || defaultConfig.store_title;
-        document.getElementById('footer-store-name').textContent = config.store_title || defaultConfig.store_title;
-        const heroTitleEl = document.getElementById('hero-title-el');
-        if (heroTitleEl) heroTitleEl.innerHTML = `<span class="gradient-text">${config.hero_title || defaultConfig.hero_title}</span>`;
-        document.getElementById('hero-subtitle-el').textContent = config.hero_subtitle || defaultConfig.hero_subtitle;
-        document.getElementById('contact-phone-el').textContent = config.contact_phone || defaultConfig.contact_phone;
-        document.body.style.background = config.bg_color || defaultConfig.bg_color;
-        document.body.style.color = config.text_color || defaultConfig.text_color;
-      },
-      mapToCapabilities: (config) => ({
-        recolorables: [
-          { get: () => config.bg_color || defaultConfig.bg_color, set: v => { config.bg_color = v; window.elementSdk.setConfig({ bg_color: v }); } },
-          { get: () => config.surface_color || defaultConfig.surface_color, set: v => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
-          { get: () => config.text_color || defaultConfig.text_color, set: v => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
-          { get: () => config.primary_color || defaultConfig.primary_color, set: v => { config.primary_color = v; window.elementSdk.setConfig({ primary_color: v }); } },
-          { get: () => config.accent_color || defaultConfig.accent_color, set: v => { config.accent_color = v; window.elementSdk.setConfig({ accent_color: v }); } }
-        ],
-        borderables: [],
-        fontEditable: {
-          get: () => config.font_family || 'Plus Jakarta Sans',
-          set: v => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); document.body.style.fontFamily = `${v}, 'Plus Jakarta Sans', sans-serif`; }
-        },
-        fontSizeable: undefined
-      }),
-      mapToEditPanelValues: (config) => new Map([
-        ['store_title', config.store_title || defaultConfig.store_title],
-        ['hero_title', config.hero_title || defaultConfig.hero_title],
-        ['hero_subtitle', config.hero_subtitle || defaultConfig.hero_subtitle],
-        ['contact_phone', config.contact_phone || defaultConfig.contact_phone],
-        ['zalo_phone', config.zalo_phone || defaultConfig.zalo_phone]
-      ])
+    function closeModal() { document.getElementById('product-modal').style.display = 'none'; }
+    function closeCart() { document.getElementById('cart-modal').style.display = 'none'; }
+    
+    function showToast(msg) { 
+        const t = document.createElement('div'); 
+        t.className = 'toast'; 
+        t.textContent = msg; 
+        document.body.appendChild(t); 
+        setTimeout(() => t.remove(), 3000); 
+    }
+
+    // Hiển thị sản phẩm khi trang tải xong
+    window.addEventListener('DOMContentLoaded', () => {
+        const grid = document.getElementById('products-cards');
+        if(grid) {
+            document.getElementById('products-loading').style.display = 'none';
+            document.getElementById('product-grid').style.display = 'block';
+            
+            grid.innerHTML = allProducts.map((p, idx) => `
+                <div class="glass-card" style="border-radius:12px;padding:16px;">
+                    <h3 style="font-weight:700;margin-bottom:8px;">${p.name}</h3>
+                    <p style="font-size:12px;color:gray;margin-bottom:10px;">${p.specs}</p>
+                    <div style="color:#50c8ff;font-weight:700;margin-bottom:12px;">${p.price.toLocaleString()} ₫</div>
+                    <button class="btn-primary" style="width:100%;" onclick="addProductToCart('${p.name}', '${p.category}', ${p.price})">Thêm vào giỏ</button>
+                </div>
+            `).join('');
+        }
+        updateCartUI();
+        lucide.createIcons();
     });
-  }
-
-  initSDKs();
-
-  function getCategories() {
-    const cats = ['Tất cả', ...new Set(allProducts.map(p => p.category).filter(Boolean))];
-    return cats;
-  }
+</script>
 
   function renderCategories() {
     const container = document.getElementById('category-tabs');
