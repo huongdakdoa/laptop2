@@ -636,7 +636,6 @@
       { id: 'sp10', name: 'Surface Pro 10', subtitle: 'Core Ultra 5 / 16GB / 256GB + Keyboard', price: 38500000, oldPrice: 42000000, badge: 'hot', category: 'pro', emoji: '🖥️', stars: 5, reviews: 204 }, 
       { id: 'sp9', name: 'Surface Pro 9', subtitle: 'i5 / 8GB / 256GB', price: 26900000, oldPrice: 30000000, badge: 'sale', category: 'pro', emoji: '🖥️', stars: 4, reviews: 315 }, 
       { id: 'ss2p', name: 'Surface Studio 2+', subtitle: 'Core i7 / 32GB / 1TB / RTX 3060', price: 89000000, oldPrice: null, badge: 'new', category: 'studio', emoji: '🖼️', stars: 5, reviews: 42 }, 
-      { id: 'sgo4', name: 'Surface Go 4', subtitle: 'N200 / 8GB / 128GB', price: 14900000, oldPrice: 17000000, badge: 'sale', category: 'pro', emoji: '📱', stars: 4, reviews: 189 }, 
       { id: 'pen', name: 'Surface Slim Pen 2', subtitle: 'Haptic feedback, 4096 cấp độ nhạy', price: 3200000, oldPrice: 3900000, badge: null, category: 'accessory', emoji: '✏️', stars: 5, reviews: 256 }, 
       { id: 'kb', name: 'Surface Pro Signature Keyboard', subtitle: 'Với trackpad Glass, tích hợp Slim Pen', price: 5900000, oldPrice: 6500000, badge: null, category: 'accessory', emoji: '⌨️', stars: 4, reviews: 178 }, 
     ]; 
@@ -658,7 +657,14 @@
       return; 
     } 
     grid.innerHTML = items.map(p => { 
-      const badgeHtml = p.badge ? `<span class="badge badge-${p.badge}" style="margin-bottom:8px; display:inline-block;">${p.badge === 'hot' ? '🔥 Hot' : p.badge === 'new' ? '✨ Mới' : '💸 Sale'}</span>` : ''; 
+      let badgeHtml = '';
+      if (p.badge) {
+        const badgeStr = String(p.badge).toLowerCase().trim();
+        if (badgeStr && badgeStr !== 'null' && badgeStr !== 'undefined' && badgeStr.length > 0 && ['hot', 'new', 'sale'].includes(badgeStr)) {
+          const badgeLabel = badgeStr === 'hot' ? '🔥 Hot' : badgeStr === 'new' ? '✨ Mới' : '💸 Sale';
+          badgeHtml = `<span class="badge badge-${badgeStr}" style="margin-bottom:8px; display:inline-block;">${badgeLabel}</span>`;
+        }
+      }
       const starsHtml = '★'.repeat(p.stars) + '☆'.repeat(5 - p.stars); 
       const oldPriceHtml = p.oldPrice ? `<span class="price-old">${formatPrice(p.oldPrice)}</span>` : ''; 
       const imageHtml = p.image && p.image.startsWith('http') 
@@ -768,25 +774,21 @@
     if (cart.length === 0) { 
       cartItemsEl.innerHTML = '<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:200px; color:rgba(255,255,255,0.3);"><div style="font-size:48px; margin-bottom:16px;">🛒</div><div style="font-size:14px;">Giỏ hàng trống</div></div>'; 
     } else { 
-      cartItemsEl.innerHTML = cart.map((item, idx) => ` 
-  <div style="display:flex; gap:14px; padding:14px 0; border-bottom:1px solid rgba(255,255,255,0.06); align-items:center;" id="cart-row-${idx}">
-   <div style="width:50px; height:50px; background:rgba(0,120,212,0.1); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:24px; flex-shrink:0;">${item.product.emoji}</div>
+      cartItemsEl.innerHTML = cart.map((item, idx) => {
+        return ` 
+  <div style="display:flex; gap:12px; padding:14px; border:1px solid rgba(255,255,255,0.07); border-radius:10px; margin-bottom:10px; align-items:center; justify-content:space-between;" id="cart-row-${idx}">
    <div style="flex:1; min-width:0;">
-    <div style="font-weight:600; font-size:13px; margin-bottom:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${item.product.name}</div>
-    <div style="font-size:11px; color:rgba(255,255,255,0.35); margin-bottom:6px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${item.product.subtitle}</div>
-    <div style="display:flex; align-items:center; gap:12px;">
-     <span class="price-tag" style="font-size:13px;">${formatPrice(item.product.price * item.qty)}</span>
-     <div style="display:flex; align-items:center; gap:6px;">
-      <button onclick="changeQty(${idx}, -1)" style="width:24px; height:24px; border-radius:6px; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.1); color:white; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:14px; font-family:inherit;">−</button>
-      <span style="font-size:13px; font-weight:600; min-width:16px; text-align:center;">${item.qty}</span>
-      <button onclick="changeQty(${idx}, 1)" style="width:24px; height:24px; border-radius:6px; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.1); color:white; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:14px; font-family:inherit;">+</button>
-     </div>
+    <div style="font-weight:700; font-size:14px; margin-bottom:4px;">${item.product.name}</div>
+    <div style="display:flex; align-items:center; gap:8px;">
+     <span class="price-tag" style="font-size:14px; font-weight:700;">${formatPrice(item.product.price)}</span>
+     <span style="font-size:12px; color:rgba(255,255,255,0.4);">x${item.qty}</span>
     </div>
    </div>
-   <button onclick="removeFromCart(${idx})" style="background:rgba(255,68,68,0.1); border:1px solid rgba(255,68,68,0.2); color:#ff6b6b; width:30px; height:30px; border-radius:7px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0;"> 
-    <i data-lucide="trash-2" style="width:13px; height:13px;"></i> 
+   <button onclick="removeFromCart(${idx})" style="background:rgba(255,68,68,0.15); border:1px solid rgba(255,68,68,0.3); color:#ff6b6b; width:28px; height:28px; border-radius:6px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0;"> 
+    <i data-lucide="trash-2" style="width:12px; height:12px;"></i> 
    </button>
-  </div> `).join(''); 
+  </div> `;
+      }).join(''); 
     } 
     
     lucide.createIcons(); 
@@ -1160,5 +1162,5 @@
     lucide.createIcons(); 
   })(); 
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e53dc5866ba08f1',t:'MTc3NTAwNzM2NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e53f3897570050d',t:'MTc3NTAwODMxNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
