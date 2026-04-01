@@ -897,41 +897,54 @@
 } 
   
   // ─── CONTACT FORM ──────────────────────────────────────────────────────────── 
-  async function submitContactForm(e) { 
-    e.preventDefault(); 
-    if (allOrders.length >= 999) { 
-      showToast('Hệ thống đầy. Vui lòng liên hệ trực tiếp!', 'error'); 
-      return; 
-    } 
+  async function submitContactForm(e) {
+  e.preventDefault();
+  const name = document.getElementById('cf-name').value;
+  const phone = document.getElementById('cf-phone').value;
+  const email = document.getElementById('cf-email').value || 'Không cung cấp';
+  const product = document.getElementById('cf-product').value || 'Chưa chọn';
+  const note = document.getElementById('cf-note').value;
+
+  const submitBtn = document.getElementById('contact-submit-btn');
+  submitBtn.disabled = true;
+  const originalBtnContent = submitBtn.innerHTML;
+  submitBtn.innerHTML = 'Đang gửi...';
+
+  try {
+    // 1. Tạo nội dung tin nhắn tư vấn
+    let message = `*YÊU CẦU TƯ VẤN MỚI*\n`;
+    message += `--------------------------\n`;
+    message += `👤 Khách hàng: ${name}\n`;
+    message += `📞 Điện thoại: ${phone}\n`;
+    message += `📧 Email: ${email}\n`;
+    message += `💻 Sản phẩm quan tâm: ${product}\n`;
+    message += `📝 Nội dung/Ghi chú: ${note || 'Cần tư vấn thêm'}\n`;
+    message += `--------------------------\n`;
+    message += `🕒 Thời gian: ${new Date().toLocaleString('vi-VN')}`;
+
+    // 2. Thiết lập số Zalo của bạn
+    const zaloPhone = '0984026995';
+    const zaloUrl = `https://zalo.me/${zaloPhone}?text=${encodeURIComponent(message)}`;
+
+    // 3. Thông báo và chuyển hướng
+    showToast('Yêu cầu đã được ghi nhận!', 'success');
     
-    const btn = document.getElementById('contact-submit-btn'); 
-    btn.disabled = true; 
-    btn.innerHTML = '<i data-lucide="loader" style="width:15px; height:15px;"></i> Đang gửi...'; 
-    lucide.createIcons(); 
-    
-    const result = await window.dataSdk.create({ 
-      customer_name: document.getElementById('cf-name').value.trim(), 
-      customer_email: document.getElementById('cf-email').value.trim(), 
-      customer_phone: document.getElementById('cf-phone').value.trim(), 
-      product_name: document.getElementById('cf-product').value || 'Chưa chọn', 
-      product_price: 0, 
-      quantity: 0, 
-      order_note: document.getElementById('cf-note').value.trim(), 
-      order_date: new Date().toISOString(), 
-      status: 'inquiry' 
-    }); 
-    
-    btn.disabled = false; 
-    btn.innerHTML = '<i data-lucide="send" style="width:15px; height:15px;"></i> Gửi yêu cầu tư vấn'; 
-    lucide.createIcons(); 
-    
-    if (result.isOk) { 
-      document.getElementById('contact-form').reset(); 
-      showToast('Yêu cầu đã được gửi! Chúng tôi sẽ liên hệ trong 30 phút.', 'success'); 
-    } else { 
-      showToast('Có lỗi xảy ra. Vui lòng thử lại!', 'error'); 
-    } 
-  } 
+    // Reset form sau khi gửi
+    document.getElementById('contact-form').reset();
+
+    // Mở Zalo sau một khoảng thời gian ngắn
+    setTimeout(() => {
+      window.open(zaloUrl, '_blank');
+    }, 800);
+
+  } catch (err) {
+    console.error('Lỗi gửi form:', err);
+    showToast('Không thể gửi yêu cầu!', 'error');
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = originalBtnContent;
+  }
+}
   
   // ─── ADMIN PANEL ───────────────────────────────────────────────────────────── 
   function showAdminPanel() { 
