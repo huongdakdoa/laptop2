@@ -18,9 +18,10 @@
     .app-root { overflow-y: auto; width: 100%; }
 
     .glass {
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.08);
+         background: rgba(45, 0, 70, 0.6); /* Ví dụ: sửa 0.6 thành 0.95 để đậm hơn */
+         backdrop-filter: blur(10px); 
+         -webkit-backdrop-filter: blur(10px);
+         border: 1px solid rgba(255,255,255,0.08);
     }
     .glass-card {
       background: rgba(255,255,255,0.04);
@@ -121,6 +122,10 @@
 
     /* Nav */
     .nav-link {
+      white-space: nowrap; /* Tuyệt đối không cho xuống dòng */
+      flex-shrink: 0;      /* Không cho phép các mục này bị bóp nhỏ lại */
+      font-size: 15px !important; /* Cố định một cỡ chữ bạn thấy đẹp (ví dụ 15px) */
+      display: inline-block;
       color: rgba(255,255,255,0.7);
       font-size: 14px;
       font-weight: 500;
@@ -284,7 +289,7 @@
 
 .banner-content {
     position: absolute;
-    top: 10%; /* Căn giữa theo chiều dọc */
+    top: 15%; /* Căn giữa theo chiều dọc */
     left: 5%; /* Cách lề trái 5% */
     transform: translateY(-50%); /* Bù trừ để giữa chuẩn xác */
     color: White; /* Màu trắng */
@@ -293,15 +298,15 @@
 }
 
 .store-name {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-    font-weight: bold;
+    font-size: 2.5vw; 
+    font-weight: 800;
+    margin: 5px 0;
     text-transform: uppercase;
-    white-space: nowrap; /* Giữ tên trên một dòng */
+    white-space: nowrap;
 }
 
 .sub-title {
-    font-size: 1.2rem;
+    font-size: 2vw;
     color: #ffcc00; /* Màu vàng nhấn mạnh */
     margin-bottom: 5px;
 }
@@ -310,7 +315,7 @@
     display: flex;
     align-items: center;
     margin-top: 10px;
-    font-size: 1.1rem;
+    font-size: 1.2vw;
 }
 
 .icon {
@@ -328,7 +333,7 @@
       <svg width="28" height="28" viewbox="0 0 28 28" fill="none">
        <rect x="1" y="1" width="12" height="12" rx="2" fill="#0078d4" /> <rect x="15" y="1" width="12" height="12" rx="2" fill="#50c8ff" /> <rect x="1" y="15" width="12" height="12" rx="2" fill="#50c8ff" opacity="0.7" /> <rect x="15" y="15" width="12" height="12" rx="2" fill="#0078d4" opacity="0.6" />
       </svg>
-      <h1 id="nav-store-name" class="text-xl font-bold tracking-tight text-white">Surface Store Vietnam</h1>
+      <h1 id="nav-store-name" class="text-xl font-bold tracking-tight text-white">Surface cũ GIA LAI</h1>
      </div>
      <div style="display:flex; align-items:center; gap:4px;" id="nav-links">
       <span class="nav-link active" onclick="scrollToSection('products')">Sản phẩm</span> <span class="nav-link" onclick="scrollToSection('why')">Tại sao chọn chúng tôi</span> <span class="nav-link" onclick="scrollToSection('contact')">Liên hệ</span> <span class="nav-link" onclick="showAdminPanel()">Đơn hàng</span>
